@@ -15,8 +15,8 @@ router.get('/ddd', function* (next) {
         this.body = 'hello /ddd';
 });
 
-router.get('/user', function* (next) {
-	yield this.render('user');
+router.get('/user/:id', function* (next) {
+	yield this.render('user', {id: this.params.id});
 });
 
 app.use(function* (next) {
