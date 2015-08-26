@@ -1,4 +1,5 @@
 var koa = require('koa');
+var bodyParser = require('koa-bodyparser');
 var handlebars = require('koa-handlebars');
 var Router = require('koa-router');
 var mongoose = require('mongoose');
@@ -20,7 +21,16 @@ router.get('/ddd', function* (next) {
 });
 
 router.get('/user/:id', function* (next) {
-	yield this.render('user', {id: this.params.id});
+	this.body = yield User.find({_id: this.params.id});
+});
+
+router.post('/user', function* (next) {
+        var user = new User({
+		name: this.request.body.name,
+		age: this.request.body.age
+	});
+
+	this.body = yield user.save();
 });
 
 router.get('/users', function* (next) {
@@ -32,6 +42,8 @@ app.use(function* (next) {
 	requests++;
 	yield next;
 });
+
+app.use(bodyParser());
 
 app.use(handlebars({
 	defaultLayout: 'main.hbs',
