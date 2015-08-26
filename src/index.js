@@ -33,6 +33,12 @@ router.post('/user', function* (next) {
 	this.body = yield user.save();
 });
 
+router.del('/user/:id', function* (next) {
+        yield User.remove({_id: this.params.id});
+
+	this.status = 204;
+});
+
 router.get('/users', function* (next) {
 	this.body = yield User.find();
 });
