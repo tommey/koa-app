@@ -1,8 +1,6 @@
 var app = require('./src');
 var config = require('./config');
 
-
-
 app.listen(config.port, function(err) {
 	if (err) throw err;
 

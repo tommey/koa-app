@@ -4,13 +4,6 @@ var Router = require('koa-router');
 var User = require('./models/user');
 
 var router = Router();
-router.get('/', function* (next) {
-	this.body = 'hello #' + requests;
-});
-
-router.get('/ddd', function* (next) {
-        this.body = 'hello /ddd';
-});
 
 router.get('/user/:id', function* (next) {
 	this.body = yield User.find({_id: this.params.id});
@@ -36,4 +29,3 @@ router.get('/users', function* (next) {
 });
 
 module.exports = router;
-
